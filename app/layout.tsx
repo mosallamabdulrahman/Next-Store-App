@@ -33,9 +33,9 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
     >
-      <body className="min-h-screen bg-[#fafafa] text-gray-900 font-sans">
+      <body className="min-h-screen bg-white text-gray-900 font-sans">
         <Header categories={categories} />
-        <main className="flex-1 p-10">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

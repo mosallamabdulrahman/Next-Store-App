@@ -34,10 +34,15 @@ export async function FetchWooProductBySlug(slug: string) {
   const products = await wooFetch(`products?slug=${slug}`);
   return products[0] || null;
 }
+export async function FetchWooBrands() {
+  const brands = await wooFetch(`products/brands?per_page=20`);
+  return brands;
+}
 
 export default {
   FetchWooCategories,
   FetchWooProducts,
   FetchWooCategoryBySlug,
   FetchWooProductBySlug,
+  FetchWooBrands,
 };

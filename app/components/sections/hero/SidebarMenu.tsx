@@ -25,7 +25,7 @@ export const SidebarMenu = async () => {
                   />
                 </span>
                 <span className="text-base font-medium tracking-tight group-hover:translate-x-0.5 transition-transform">
-                  {item.name}
+                  {item.name.replace(/&amp;/g, "&")}
                 </span>
               </div>
             </Link>

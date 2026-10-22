@@ -12,6 +12,11 @@ export interface ImageProduct {
   src: string;
   alt: string;
 }
+export interface Brand {
+  id: number;
+  name: string;
+  image: ImageProduct;
+}
 export interface ShopCategoryItem {
   id: string | number;
   name: string;
@@ -31,8 +36,8 @@ export interface Product {
   slug: string;
   price: number;
   description: string;
-  categories: Category[];
-  images: ImageProduct[];
+  categories?: Category[];
+  images?: ImageProduct[];
   average_rating: number;
 }
 
@@ -56,13 +61,6 @@ export interface CategoryItem {
   slug: string;
   image: string;
 }
-
-export interface Brand {
-  id: string;
-  name: string;
-  logoSvg?: string;
-}
-
 export interface DealItem {
   id: string;
   name: string;

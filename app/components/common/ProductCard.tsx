@@ -10,6 +10,7 @@ import {
   CompareIcon,
   EyeIcon,
 } from "@app/components/common/Icons";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: Product;
@@ -28,19 +29,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="group relative bg-white rounded-2xl border border-gray-100/90 p-3.5 sm:p-4 flex flex-col justify-between hover:border-purple-200 hover:shadow-lg hover:shadow-purple-700/5 transition-all duration-300">
       {/* Product Image Area */}
-      <div className="relative w-full aspect-square bg-gray-50/50 rounded-xl overflow-hidden mb-3 flex items-center justify-center p-2">
+      <Link
+        href={`/product/${product.slug}`}
+        className="relative w-full aspect-square bg-gray-50/50 rounded-xl overflow-hidden mb-3 flex items-center justify-center p-2"
+      >
         {/* Badges */}
-        {product.tag && (
+        {product?.categories?.[0] && (
           <span
             className={`absolute top-2 left-2 z-10 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-              product.tag === "Sale"
+              product.categories?.[0]?.name === "Sale"
                 ? "bg-rose-500 text-white"
-                : product.tag === "Hot"
+                : product.categories?.[0]?.name === "Hot"
                   ? "bg-amber-500 text-white"
                   : "bg-purple-700 text-white"
             }`}
           >
-            {product.tag}
+            {product.categories?.[0]?.name}
           </span>
         )}
 
@@ -77,23 +81,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Main Image */}
-        <img
-          src={product.imageUrl}
-          alt={product.name}
+        <Image
+          src={
+            product?.images?.[0]?.src ||
+            "/images/Greatwall_Luyuan_Logo_Full_Transparent_Native.webp"
+          }
+          alt={product?.images?.[0]?.alt || product.name}
           className="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-108"
           loading="lazy"
+          width={500}
+          height={500}
         />
-      </div>
+      </Link>
 
       {/* Product Information */}
       <div className="flex flex-col flex-1 justify-between">
         {/* Category & Rating Number */}
         <div className="flex items-center justify-between text-[11px] text-gray-400 mb-1">
           <span className="hover:text-purple-700 transition-colors cursor-pointer line-clamp-1">
-            {product.category}
+            {product?.categories?.[0]?.name ?? "No Category"}
           </span>
           <div className="flex items-center gap-1 font-semibold text-gray-600">
-            <span>{product.rating.toFixed(1)}</span>
+            <span>{product.average_rating ?? "No Rating"}</span>
             <span className="text-yellow-400">★</span>
           </div>
         </div>
@@ -107,20 +116,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Stars */}
         <div className="mb-2">
-          <StarRating rating={product.rating} />
+          <StarRating rating={product.average_rating} />
         </div>
 
         {/* Price & Add to Cart button */}
         <div className="flex items-center justify-between pt-1 border-t border-gray-50">
           <div className="flex items-baseline gap-1.5">
             <span className="text-sm sm:text-base font-extrabold text-purple-700">
-              ${product.price.toFixed(2)}
+              EGP{product.price}
             </span>
-            {product.oldPrice && (
-              <span className="text-[11px] text-gray-400 line-through">
-                ${product.oldPrice.toFixed(2)}
-              </span>
-            )}
           </div>
 
           <button

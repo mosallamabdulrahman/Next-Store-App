@@ -7,7 +7,14 @@ import { GamingSection } from "@app/components/sections/GamingSection";
 import { ArticlesSection } from "@app/components/sections/articles/ArticlesSection";
 import { SeoTextSection } from "@app/components/sections/SeoTextSection";
 
-export default function Home() {
+interface HomePageProps {
+  searchParams: Promise<{ category?: string }>;
+}
+
+export default async function Home({ searchParams }: HomePageProps) {
+  const resolvedParams = await searchParams;
+  const activeCategory = resolvedParams?.category || "smartphones";
+
   return (
     <div className="min-h-screen flex flex-col bg-[#fafafa] text-gray-900 selection:bg-purple-100 selection:text-purple-700 font-sans antialiased">
       {/* Main Page Body Container */}
@@ -19,7 +26,7 @@ export default function Home() {
         <BrandLogos />
 
         {/* 4. Bestsellers In Category (12-product grid with category tabs) */}
-        <BestsellersSection />
+        <BestsellersSection category={activeCategory} />
 
         {/* 5. Popular in Appliances (6-product grid) */}
         <AppliancesSection />
