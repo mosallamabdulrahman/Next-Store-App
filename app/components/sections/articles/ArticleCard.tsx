@@ -1,17 +1,17 @@
 import React from "react";
 import Link from "next/link";
-import { Article } from "@app/types";
+import { Post } from "@app/types";
 import {
   CommentsIcon,
   UserCircleIcon,
   ChevronRightIcon,
 } from "@app/components/common/Icons";
 
-interface ArticleCardProps {
-  article: Article;
+interface PostCardProps {
+  post: Post;
 }
 
-export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
+export const ArticleCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <article className="group bg-white rounded-3xl border border-gray-100/90 overflow-hidden shadow-xs hover:shadow-lg hover:border-purple-200 transition-all duration-300 flex flex-col justify-between">
       {/* Article Image Container */}
@@ -19,24 +19,24 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         {/* Floating Date Badge */}
         <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-xs rounded-xl px-2.5 py-1 text-center shadow-md border border-gray-100">
           <span className="block text-sm font-black text-gray-900 leading-none">
-            {article.date.day}
+            {post.date.day}
           </span>
           <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">
-            {article.date.month}
+            {post.date.month}
           </span>
         </div>
 
         {/* Thumbnail Image */}
         <img
-          src={article.imageUrl}
-          alt={article.title}
+          src={post.imageUrl}
+          alt={post.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Category Pill Tag Overlay */}
         <div className="absolute bottom-3 left-3 z-10">
           <span className="bg-purple-700 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs">
-            {article.category}
+            {post.category}
           </span>
         </div>
       </div>
@@ -50,7 +50,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
             className="block group-hover:text-purple-700 transition-colors"
           >
             <h3 className="text-sm sm:text-base font-bold text-gray-900 line-clamp-2 leading-snug">
-              {article.title}
+              {post.title}
             </h3>
           </Link>
 
@@ -61,14 +61,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
               <span>
                 Posted by{" "}
                 <strong className="text-gray-600 font-medium">
-                  {article.author}
+                  {post.author}
                 </strong>
               </span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
               <CommentsIcon className="w-3.5 h-3.5 text-gray-400" />
-              <span>{article.commentsCount}</span>
+              <span>{post.commentsCount}</span>
             </span>
           </div>
         </div>

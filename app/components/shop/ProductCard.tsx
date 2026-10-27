@@ -10,10 +10,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Link
-      href={`/product/${product.slug}`}
-      className="w-full max-w-[280px] bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
-    >
+    <div className="w-full max-w-[280px] bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
       <div className="p-4 flex flex-col">
         <div className="flex justify-end gap-3.5 text-gray-700">
           <button
@@ -72,7 +69,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </button>
         </div>
 
-        <div className="w-full h-44 flex items-center justify-center my-3">
+        <Link
+          href={`/product/${product.slug}`}
+          className="w-full h-44 flex items-center justify-center my-3"
+        >
           <Image
             src={product.images[0].src}
             alt={product.images[0].alt}
@@ -80,15 +80,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             width={176}
             height={176}
           />
-        </div>
+        </Link>
 
         {/* القسم والتقييم */}
         <div className="flex items-center justify-between text-sm mt-2">
-          <span className="text-gray-400 font-medium">
-            {product.categories
-              ?.map((cat) => cat.name.replace(/&amp;/g, "&"))
-              .join(", ")}
-          </span>
+          <div className="flex gap-2">
+            {product.categories?.map((cat, index, array) => (
+              <Link
+                key={cat.id}
+                href={`/product-category/${cat.slug}`}
+                className="text-gray-400 font-medium"
+              >
+                {cat.name}
+                {index < array.length - 1 && (
+                  <span className="text-gray-400">,</span>
+                )}
+              </Link>
+            ))}
+          </div>
+
           <div className="flex items-center gap-1">
             <span className="text-gray-500 font-medium">
               {product.average_rating}
@@ -126,6 +136,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </svg>
         </button>
       </div>
-    </Link>
+    </div>
   );
 };

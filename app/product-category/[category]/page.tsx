@@ -36,7 +36,7 @@ export default async function CategoriesPage({
   const gridColumns =
     resolvedSearchParams.per_row === "3"
       ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4";
+      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
 
   // 3. Build query params with category id
   const defaultParams = {

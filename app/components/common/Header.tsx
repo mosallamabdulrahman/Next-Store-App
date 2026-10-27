@@ -1,9 +1,9 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   SearchIcon,
+  XIcon,
   UserIcon,
   HeartIcon,
   CompareIcon,
@@ -12,6 +12,7 @@ import {
   MenuIcon,
   PhoneIcon,
 } from "@app/components/common/Icons";
+import { SearchResultsDropdown } from "@app/components/common/SearchResultsDropdown";
 import { ShopCategoryItem } from "@app/types";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +24,24 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
   const roter = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const slug = e.target.value;
@@ -94,16 +112,19 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
               </span>
             </Link>
 
-            {/* Categories dropdown button */}
-            <button className="hidden xl:flex items-center gap-2 bg-gray-900 hover:bg-purple-700 text-white text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-full transition-all duration-200 shadow-xs">
+            {/* Categories button */}
+            <Link
+              href="/shop"
+              className="hidden xl:flex items-center gap-2 bg-gray-900 hover:bg-purple-700 text-white text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-full transition-all duration-200 shadow-xs"
+            >
               <MenuIcon className="w-4 h-4" />
               <span>Categories</span>
               <ChevronDownIcon className="w-3.5 h-3.5 opacity-80" />
-            </button>
+            </Link>
           </div>
 
           {/* Central Search Bar */}
-          <div className="flex-1 max-w-2xl hidden md:block">
+          <div className="relative flex-1 max-w-2xl hidden md:block" ref={searchRef}>
             <form
               onSubmit={(e) => e.preventDefault()}
               className="relative flex items-center"
@@ -118,7 +139,7 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
                   >
                     <option value="">All Categories</option>
                     {categories.map((cat) => (
-                      <option value={cat.name} key={cat.id}>
+                      <option value={cat.slug || cat.name} key={cat.id}>
                         {cat.name}
                       </option>
                     ))}
@@ -131,20 +152,47 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
                   type="text"
                   placeholder="Search for products"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchOpen(true)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setIsSearchOpen(true);
+                  }}
                   className="w-full text-sm text-gray-800 placeholder-gray-400 px-4 py-2.5 outline-none bg-transparent"
                 />
+
+                {/* Clear search (X) button */}
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery("");
+                      setIsSearchOpen(true);
+                    }}
+                    className="shrink-0 p-1 mr-1 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                    aria-label="Clear search"
+                  >
+                    <XIcon className="w-4 h-4" />
+                  </button>
+                )}
 
                 {/* Search Button with vibrant purple */}
                 <button
                   type="submit"
-                  className="shrink-0 mr-1.5 p-2 bg-purple-700 hover:bg-purple-800 text-white rounded-full transition-colors flex items-center justify-center shadow-xs"
+                  className="shrink-0 mr-1.5 p-2 bg-purple-700 hover:bg-purple-800 text-white rounded-full transition-colors flex items-center justify-center shadow-xs cursor-pointer"
                   aria-label="Search"
                 >
                   <SearchIcon className="w-4 h-4" />
                 </button>
               </div>
             </form>
+
+            {/* Static Autocomplete Dropdown matching Woodmart */}
+            {isSearchOpen && (
+              <SearchResultsDropdown
+                query={searchQuery}
+                onItemClick={() => setIsSearchOpen(false)}
+              />
+            )}
           </div>
 
           {/* Header Right Actions */}
@@ -215,19 +263,38 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
         </div>
 
         {/* Mobile Search input */}
-        <div className="mt-3 md:hidden">
+        <div className="mt-3 md:hidden relative">
           <div className="relative flex items-center rounded-full border border-gray-200 bg-white overflow-hidden shadow-xs">
             <input
               type="text"
               placeholder="Search for products..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setIsSearchOpen(true)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsSearchOpen(true);
+              }}
               className="w-full text-xs text-gray-800 placeholder-gray-400 px-4 py-2 outline-none"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="shrink-0 p-1 mr-1 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <XIcon className="w-3.5 h-3.5" />
+              </button>
+            )}
             <button className="p-2 bg-purple-700 text-white mr-1 rounded-full">
               <SearchIcon className="w-3.5 h-3.5" />
             </button>
           </div>
+          {isSearchOpen && (
+            <SearchResultsDropdown
+              query={searchQuery}
+              onItemClick={() => setIsSearchOpen(false)}
+            />
+          )}
         </div>
       </div>
 

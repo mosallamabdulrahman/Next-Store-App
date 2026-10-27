@@ -58,7 +58,7 @@ export const CATEGORIES_MENU: CategoryItem[] = [
       "https://woodmart.xtemos.com/electronics-3/wp-content/uploads/sites/27/2025/07/ed-header-category-cameras.png.webp",
   },
 ];
-export const BRANDS: Brand[] = [
+export const BRANDS: any[] = [
   { id: "1", name: "acer" },
   { id: "2", name: "ALIENWARE" },
   { id: "3", name: "ЛОС" },
@@ -68,7 +68,7 @@ export const BRANDS: Brand[] = [
   { id: "7", name: "CORSAIR" },
 ];
 
-export const BESTSELLER_PRODUCTS: Product[] = [
+export const BESTSELLER_PRODUCTS: any[] = [
   {
     id: "bs-1",
     name: "Apple iPhone 15",
@@ -197,7 +197,7 @@ export const BESTSELLER_PRODUCTS: Product[] = [
   },
 ];
 
-export const APPLIANCE_PRODUCTS: Product[] = [
+export const APPLIANCE_PRODUCTS: any[] = [
   {
     id: "app-1",
     name: "Smeg Retro 2-Slice Toaster",
@@ -323,7 +323,7 @@ export const LIMITED_OFFERS_ITEMS: DealItem[] = [
   },
 ];
 
-export const GAMING_PRODUCTS: Product[] = [
+export const GAMING_PRODUCTS: any[] = [
   {
     id: "game-1",
     name: "Logitech G29 Driving Force Racing Wheel",
@@ -386,7 +386,7 @@ export const GAMING_PRODUCTS: Product[] = [
   },
 ];
 
-export const ARTICLES: Article[] = [
+export const ARTICLES: any[] = [
   {
     id: "art-1",
     title: "Review of the new MacBook Pro on the powerful M3 chip series",

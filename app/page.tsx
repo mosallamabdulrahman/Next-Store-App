@@ -1,5 +1,5 @@
 import { HeroSection } from "@app/components/sections/hero/HeroSection";
-import { BrandLogos } from "@app/components/sections/BrandLogos";
+import { BrandLogos } from "@/app/components/sections/brands/BrandLogos";
 import { BestsellersSection } from "@app/components/sections/best-sellers/BestsellersSection";
 import { AppliancesSection } from "@app/components/sections/AppliancesSection";
 import { LimitedOffersSection } from "@app/components/sections/LimitedOffersSection";

@@ -36,23 +36,47 @@ export interface Product {
   slug: string;
   price: number;
   description: string;
-  categories?: Category[];
-  images?: ImageProduct[];
+  categories: Category[];
+  images: ImageProduct[];
   average_rating: number;
 }
 
-export interface Article {
-  id: string;
+export interface Post {
+  category: string;
+  author: string;
+  commentsCount: number;
+  id: number;
   title: string;
+  slug: string;
+  link?: string;
+  imageUrl: string;
   date: {
     day: string;
     month: string;
   };
-  category: string;
-  author: string;
-  commentsCount: number;
-  imageUrl: string;
-  excerpt?: string;
+}
+
+export interface WordPressPost {
+  id: number;
+  slug: string;
+  link: string;
+  date: string;
+  title?: { rendered: string };
+  _embedded?: {
+    ["wp:term"]?: Array<Array<{ taxonomy?: string; name?: string }>>;
+    ["wp:featuredmedia"]?: Array<{ source_url?: string }>;
+    author?: Array<{ name?: string }>;
+  };
+}
+
+export interface Article {
+  id: string | number;
+  title: string;
+  category?: string;
+  imageUrl?: string;
+  date?: string;
+  commentsCount?: number;
+  author?: string;
 }
 
 export interface CategoryItem {

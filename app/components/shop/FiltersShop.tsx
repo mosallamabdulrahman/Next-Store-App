@@ -50,7 +50,7 @@ export default function FiltersShop() {
             {/* Desktop Only: Show pagination options */}
             <div className="hidden md:flex items-center gap-1.5 text-gray-500 text-xs sm:text-sm font-medium">
               <span>Show :</span>
-              {[24, 18, 12, 9].map((item, index) => {
+              {[9, 12, 18, 24].map((item, index, array) => {
                 return (
                   <div className="flex gap-1" key={index}>
                     <button
@@ -65,7 +65,9 @@ export default function FiltersShop() {
                     >
                       {item}
                     </button>
-                    {index !== 3 && <span className="text-gray-300">/</span>}
+                    {index < array.length - 1 && (
+                      <span className="text-gray-300">/</span>
+                    )}
                   </div>
                 );
               })}
@@ -80,7 +82,11 @@ export default function FiltersShop() {
                 onClick={() => handleFilterChange({ per_row: "3" })}
                 title="3 columns"
               >
-                <svg className="w-4 h-4" viewBox="0 0 18 18" fill="currentColor">
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 18 18"
+                  fill="currentColor"
+                >
                   <circle cx="3" cy="3" r="1.5" />
                   <circle cx="9" cy="3" r="1.5" />
                   <circle cx="15" cy="3" r="1.5" />
@@ -100,7 +106,11 @@ export default function FiltersShop() {
                 title="4 columns"
                 onClick={() => handleFilterChange({ per_row: "4" })}
               >
-                <svg className="w-5 h-4" viewBox="0 0 24 18" fill="currentColor">
+                <svg
+                  className="w-5 h-4"
+                  viewBox="0 0 24 18"
+                  fill="currentColor"
+                >
                   <circle cx="3" cy="3" r="1.4" />
                   <circle cx="9" cy="3" r="1.4" />
                   <circle cx="15" cy="3" r="1.4" />

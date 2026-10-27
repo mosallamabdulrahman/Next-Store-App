@@ -37,7 +37,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     }
   });
 
-  const products: Product[] = await FetchWooProducts(queryParams.toString());
+  const products = await FetchWooProducts(queryParams.toString());
 
   return (
     <ShopSidebarProvider>
