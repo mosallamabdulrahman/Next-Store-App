@@ -1,4 +1,4 @@
-import { FetchWooProductBySlug } from "@/lib/woocommerce";
+import { FetchWooProductBySlug } from "@/lib/woocommerce/woocommerce";
 import { getProductDetails } from "@app/data/productData";
 import { ProductView } from "./ProductView";
 import { Metadata } from "next";
@@ -45,7 +45,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   try {
     wooProduct = await FetchWooProductBySlug(slug);
   } catch (error) {
-    console.error("WooCommerce fetch failed, falling back to static product:", error);
+    console.error(
+      "WooCommerce fetch failed, falling back to static product:",
+      error,
+    );
   }
 
   const product = getProductDetails(slug, wooProduct);

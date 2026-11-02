@@ -1,6 +1,6 @@
 import { SectionTitle } from "@app/components/common/SectionTitle";
 import { ProductCard } from "@app/components/common/ProductCard";
-import { FetchWooProducts } from "@/lib/woocommerce";
+import { FetchWooProducts } from "@/lib/woocommerce/woocommerce";
 import type { Product } from "@app/types";
 
 export async function AppliancesSection() {

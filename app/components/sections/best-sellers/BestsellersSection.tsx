@@ -1,7 +1,10 @@
 import { SectionTitle } from "@app/components/common/SectionTitle";
 import { ProductCard } from "@app/components/common/ProductCard";
 import { ButtonTabs } from "@app/components/sections/best-sellers/ButtonTabs";
-import { FetchWooCategoryBySlug, FetchWooProducts } from "@/lib/woocommerce";
+import {
+  FetchWooCategoryBySlug,
+  FetchWooProducts,
+} from "@/lib/woocommerce/woocommerce";
 import { Product } from "@/app/types";
 
 interface BestsellersSectionProps {

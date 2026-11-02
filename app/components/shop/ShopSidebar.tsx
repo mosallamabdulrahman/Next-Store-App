@@ -1,4 +1,4 @@
-import { FetchWooCategories } from "@/lib/woocommerce";
+import { FetchWooCategories } from "@/lib/woocommerce/woocommerce";
 import { ShopSidebarClient } from "./shopSidebarClient";
 import { ShopCategoryItem } from "@/app/types";
 

@@ -1,5 +1,5 @@
 import { Brand } from "@/app/types";
-import { FetchWooBrands } from "@/lib/woocommerce";
+import { FetchWooBrands } from "@/lib/woocommerce/woocommerce";
 import BrandsSlider from "@/app/components/sections/brands/BrandsSlider";
 
 export const BrandLogos = async () => {

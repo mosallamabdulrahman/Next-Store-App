@@ -3,7 +3,6 @@ import { BrandLogos } from "@/app/components/sections/brands/BrandLogos";
 import { BestsellersSection } from "@app/components/sections/best-sellers/BestsellersSection";
 import { AppliancesSection } from "@app/components/sections/AppliancesSection";
 import { LimitedOffersSection } from "@app/components/sections/LimitedOffersSection";
-import { GamingSection } from "@app/components/sections/GamingSection";
 import { ArticlesSection } from "@app/components/sections/articles/ArticlesSection";
 import { SeoTextSection } from "@app/components/sections/SeoTextSection";
 
@@ -33,9 +32,6 @@ export default async function Home({ searchParams }: HomePageProps) {
 
         {/* 6. Limited Offers! (Countdown + AirPods Pro 3 showcase + 6 compact deals) */}
         <LimitedOffersSection />
-
-        {/* 7. Popular in Gaming (6-product grid) */}
-        <GamingSection />
 
         {/* 8. Useful Articles (4-card blog news grid with date badges) */}
         <ArticlesSection />

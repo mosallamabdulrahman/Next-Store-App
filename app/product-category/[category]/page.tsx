@@ -3,7 +3,10 @@ import GridProdcuts from "@/app/components/shop/GridProdcuts";
 import { ShopSidebar } from "@/app/components/shop/ShopSidebar";
 import { ShopSidebarProvider } from "@/app/context/ShopSidebarContext";
 import { CategoryPageProps, Product } from "@/app/types";
-import { FetchWooCategoryBySlug, FetchWooProducts } from "@/lib/woocommerce";
+import {
+  FetchWooCategoryBySlug,
+  FetchWooProducts,
+} from "@/lib/woocommerce/woocommerce";
 import Link from "next/link";
 import { Metadata } from "next";
 

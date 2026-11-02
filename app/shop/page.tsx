@@ -4,7 +4,7 @@ import { ShopSidebar } from "@app/components/shop/ShopSidebar";
 import { ShopSidebarProvider } from "@app/context/ShopSidebarContext";
 import { Product, ShopPageProps } from "@app/types";
 import Link from "next/link";
-import { FetchWooProducts } from "@/lib/woocommerce";
+import { FetchWooProducts } from "@/lib/woocommerce/woocommerce";
 import GridProdcuts from "@app/components/shop/GridProdcuts";
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {

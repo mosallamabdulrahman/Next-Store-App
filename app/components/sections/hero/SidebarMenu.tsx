@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FetchWooCategories } from "@/lib/woocommerce";
+import { FetchWooCategories } from "@/lib/woocommerce/woocommerce";
 import { ShopCategoryItem } from "@/app/types";
 
 export const SidebarMenu = async () => {
