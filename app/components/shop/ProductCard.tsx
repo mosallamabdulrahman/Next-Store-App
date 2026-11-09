@@ -1,6 +1,4 @@
-"use client";
-import React, { useState } from "react";
-import { Product } from "@app/types";
+import type { Product } from "@app/types/product";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +6,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="w-full max-w-[280px] bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
       <div className="p-4 flex flex-col">
@@ -74,8 +72,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full h-44 flex items-center justify-center my-3"
         >
           <Image
-            src={product.images[0].src}
-            alt={product.images[0].alt}
+            src={product.primaryImage.src}
+            alt={product.primaryImage.alt}
             className="max-h-full max-w-full object-contain"
             width={176}
             height={176}
@@ -85,7 +83,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* القسم والتقييم */}
         <div className="flex items-center justify-between text-sm mt-2">
           <div className="flex gap-2">
-            {product.categories?.map((cat, index, array) => (
+            {product.categories.map((cat, index, array) => (
               <Link
                 key={cat.id}
                 href={`/product-category/${cat.slug}`}
@@ -101,7 +99,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           <div className="flex items-center gap-1">
             <span className="text-gray-500 font-medium">
-              {product.average_rating}
+              {product.averageRating}
             </span>
             <span className="text-amber-400 text-sm">★</span>
           </div>
@@ -138,4 +136,4 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
     </div>
   );
-};
+}

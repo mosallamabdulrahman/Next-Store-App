@@ -1,4 +1,4 @@
-import { Product } from "@/app/types";
+import type { Product } from "@/app/types/product";
 import { ProductCard } from "@/app/components/shop/ProductCard";
 
 interface GridProductsProps {
@@ -14,7 +14,7 @@ export default function GridProdcuts({
     <>
       {products.length > 0 ? (
         <div className={`grid ${gridColumns} gap-4 sm:gap-5`}>
-          {products.map((item: Product) => (
+          {products.map((item) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>

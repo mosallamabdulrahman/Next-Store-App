@@ -1,10 +1,12 @@
 import FiltersShop from "@app/components/shop/FiltersShop";
-import { ProductCard } from "@app/components/shop/ProductCard";
 import { ShopSidebar } from "@app/components/shop/ShopSidebar";
 import { ShopSidebarProvider } from "@app/context/ShopSidebarContext";
-import { Product, ShopPageProps } from "@app/types";
+import { ShopPageProps } from "@app/types";
 import Link from "next/link";
-import { FetchWooProducts } from "@/lib/woocommerce/woocommerce";
+import {
+  getProducts,
+  productsParamsFromSearch,
+} from "@/lib/woocommerce/products";
 import GridProdcuts from "@app/components/shop/GridProdcuts";
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {
@@ -15,29 +17,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
       : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4";
 
-  const defaultParams = {
-    per_page: "24",
-    page: "1",
-    orderby: "date",
-    order: "desc",
-    per_row: "4",
-  };
-
-  const queryParams = new URLSearchParams();
-
-  const mergedParams = { ...defaultParams, ...resolvedSearchParams };
-
-  Object.entries(mergedParams).forEach(([key, value]) => {
-    if (value !== undefined) {
-      if (Array.isArray(value)) {
-        queryParams.append(key, value.join(","));
-      } else {
-        queryParams.append(key, value);
-      }
-    }
-  });
-
-  const products = await FetchWooProducts(queryParams.toString());
+  const products = await getProducts(
+    productsParamsFromSearch(resolvedSearchParams),
+  );
 
   return (
     <ShopSidebarProvider>

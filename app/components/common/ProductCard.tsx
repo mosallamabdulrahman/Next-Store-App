@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Product } from "@app/types";
+import { Product } from "@app/types/product";
 import {
   StarRating,
   CartIcon,
@@ -102,7 +102,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product?.categories?.[0]?.name ?? "No Category"}
           </span>
           <div className="flex items-center gap-1 font-semibold text-gray-600">
-            <span>{product.average_rating ?? "No Rating"}</span>
+            <span>{product.averageRating ?? "No Rating"}</span>
             <span className="text-yellow-400">★</span>
           </div>
         </div>
@@ -116,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Stars */}
         <div className="mb-2">
-          <StarRating rating={product.average_rating} />
+          <StarRating rating={product.averageRating} />
         </div>
 
         {/* Price & Add to Cart button */}

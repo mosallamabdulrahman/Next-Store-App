@@ -1,9 +1,9 @@
-import { Brand } from "@/app/types";
-import { FetchWooBrands } from "@/lib/woocommerce/woocommerce";
+import { Brand } from "@/app/types/brand";
+import { getBrands } from "@/lib/woocommerce/brands";
 import BrandsSlider from "@/app/components/sections/brands/BrandsSlider";
 
 export const BrandLogos = async () => {
-  const brands: Brand[] = await FetchWooBrands();
+  const brands: Brand[] = await getBrands();
   return (
     <section className="py-6">
       <BrandsSlider brands={brands} />

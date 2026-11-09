@@ -305,54 +305,35 @@ export const acerConceptDData: SingleProductDetails = {
   ],
 };
 
-export interface WooAttribute {
-  name: string;
-  options: string[] | string;
-}
-
-export interface WooProductInput {
-  id?: string | number;
-  name?: string;
-  slug?: string;
-  sku?: string;
-  price?: number | string;
-  regular_price?: number | string;
-  average_rating?: number | string;
-  rating_count?: number | string;
-  stock_status?: string;
-  description?: string;
-  categories?: { id?: number; name?: string; slug?: string }[];
-  images?: { src: string; alt?: string }[];
-  attributes?: WooAttribute[];
-}
-
 /**
  * Resolves full product details:
  * Uses wooProduct data when available, merging with rich specs and Woodmart layout,
  * or returns acerConceptDData for 'acer-conceptd-ct300' and other slugs.
  */
-export function getProductDetails(slug: string, wooProduct?: WooProductInput | null): SingleProductDetails {
-  if (!wooProduct || slug === "acer-conceptd-ct300") {
+export function getProductDetails(
+  slug: string,
+  product?: Product | null,
+): SingleProductDetails {
+  if (!product || slug === "acer-conceptd-ct300") {
     return acerConceptDData;
   }
 
-  const rawImages = Array.isArray(wooProduct.images) ? wooProduct.images : [];
-  const images: ProductImageItem[] = rawImages.length > 0
-    ? rawImages.map((img) => ({
+  const images: ProductImageItem[] = product.images.length > 0
+    ? product.images.map((img) => ({
         src: img.src,
-        alt: img.alt || wooProduct.name || "",
+        alt: img.alt || product.name,
       }))
     : acerConceptDData.images;
 
-  const categoryName = wooProduct.categories?.[0]?.name || "Electronics";
-  const categorySlug = wooProduct.categories?.[0]?.slug || "electronics";
+  const categoryName = product.categories[0]?.name || "Electronics";
+  const categorySlug = product.categories[0]?.slug || "electronics";
 
   // Parse attributes if present
   let specifications = acerConceptDData.specifications;
-  if (Array.isArray(wooProduct.attributes) && wooProduct.attributes.length > 0) {
-    const customItems: SpecItem[] = wooProduct.attributes.map((attr) => ({
+  if (product.attributes.length > 0) {
+    const customItems: SpecItem[] = product.attributes.map((attr) => ({
       label: attr.name,
-      value: Array.isArray(attr.options) ? attr.options.join(", ") : String(attr.options || ""),
+      value: attr.options.join(", "),
     }));
     specifications = [
       {
@@ -366,24 +347,26 @@ export function getProductDetails(slug: string, wooProduct?: WooProductInput | n
 
   // Parse HTML description
   let cleanDesc = acerConceptDData.description;
-  if (wooProduct.description) {
-    cleanDesc = wooProduct.description.replace(/<[^>]*>?/gm, "").trim() || acerConceptDData.description;
+  if (product.description) {
+    cleanDesc =
+      product.description.replace(/<[^>]*>?/gm, "").trim() ||
+      acerConceptDData.description;
   }
 
   return {
-    id: wooProduct.id || acerConceptDData.id,
-    name: wooProduct.name || acerConceptDData.name,
-    slug: wooProduct.slug || slug,
-    sku: wooProduct.sku || (wooProduct.id ? `SKU-${wooProduct.id}` : acerConceptDData.sku),
-    price: Number(wooProduct.price) || acerConceptDData.price,
-    regularPrice: wooProduct.regular_price ? Number(wooProduct.regular_price) : undefined,
-    rating: Number(wooProduct.average_rating) || 5.0,
-    reviewCount: Number(wooProduct.rating_count) || 1,
-    inStock: wooProduct.stock_status !== "outofstock",
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    sku: product.sku || `SKU-${product.id}`,
+    price: product.price || acerConceptDData.price,
+    regularPrice: product.regularPrice || undefined,
+    rating: product.averageRating || 5.0,
+    reviewCount: product.ratingCount,
+    inStock: product.stockStatus !== "outofstock",
     breadcrumbs: [
       { label: "Home", href: "/" },
       { label: categoryName, href: `/product-category/${categorySlug}` },
-      { label: wooProduct.name || acerConceptDData.name, href: `/product/${slug}` },
+      { label: product.name, href: `/product/${slug}` },
     ],
     navPrev: acerConceptDData.navPrev,
     navNext: acerConceptDData.navNext,
@@ -395,3 +378,5 @@ export function getProductDetails(slug: string, wooProduct?: WooProductInput | n
     relatedProducts: acerConceptDData.relatedProducts,
   };
 }
+import type { Product } from "@app/types/product";
+

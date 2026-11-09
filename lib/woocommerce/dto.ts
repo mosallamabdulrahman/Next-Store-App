@@ -11,6 +11,16 @@ export interface WooProductCategoryDto {
   slug: string;
 }
 
+export interface WooProductAttributeDto {
+  id: number;
+  name: string;
+  slug: string;
+  position: number;
+  visible: boolean;
+  variation: boolean;
+  options: string[];
+}
+
 export interface WooProductDto {
   id: number;
   name: string;
@@ -32,6 +42,7 @@ export interface WooProductDto {
 
   categories: WooProductCategoryDto[];
   images: WooProductImageDto[];
+  attributes: WooProductAttributeDto[];
 }
 
 export interface WooCategoryImageDto {
@@ -48,5 +59,22 @@ export interface WooCategoryDto {
   parent: number;
   description: string;
   image: WooCategoryImageDto | null;
+  count: number;
+}
+
+export interface WooBrandImageDto {
+  id: number;
+  src: string;
+  name: string;
+  alt: string;
+}
+
+export interface WooBrandDto {
+  id: number;
+  name: string;
+  slug: string;
+  parent: number;
+  description: string;
+  image: WooBrandImageDto | null;
   count: number;
 }

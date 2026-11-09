@@ -11,6 +11,11 @@ export interface ProductCategory {
   slug: string;
 }
 
+export interface ProductAttribute {
+  name: string;
+  options: string[];
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -30,6 +35,7 @@ export interface Product {
 
   categories: ProductCategory[];
   images: ProductImage[];
+  attributes: ProductAttribute[];
 
   primaryImage: ProductImage;
 }

@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useShopSidebar } from "@app/context/ShopSidebarContext";
-import { ShopCategoryItem } from "@/app/types";
+import { Category } from "@/app/types/category";
 
 interface CategoriesListProps {
-  categories: ShopCategoryItem[];
+  categories: Category[];
 }
 
 const CategoriesList: React.FC<CategoriesListProps> = ({ categories }) => {
@@ -26,7 +26,7 @@ const CategoriesList: React.FC<CategoriesListProps> = ({ categories }) => {
                 {cat.name.replace(/&amp;/g, "&")}
               </span>
               <span className="text-xs font-normal text-gray-400 group-hover:text-gray-600 border border-gray-200 group-hover:border-gray-300 rounded-full px-2.5 py-0.5 min-w-[28px] text-center transition-colors">
-                {cat.count}
+                {cat.productCount}
               </span>
             </Link>
           </li>
@@ -136,7 +136,7 @@ const PriceFilterSection: React.FC<PriceFilterProps> = ({
 };
 
 export interface ShopSidebarClientProps {
-  categories?: ShopCategoryItem[];
+  categories?: Category[];
 }
 
 export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({

@@ -13,11 +13,11 @@ import {
   PhoneIcon,
 } from "@app/components/common/Icons";
 import { SearchResultsDropdown } from "@app/components/common/SearchResultsDropdown";
-import { ShopCategoryItem } from "@app/types";
+import { Category } from "@app/types/category";
 import { useRouter } from "next/navigation";
 
 interface headerProps {
-  categories?: ShopCategoryItem[];
+  categories?: Category[];
 }
 
 export const Header: React.FC<headerProps> = ({ categories = [] }) => {
@@ -124,7 +124,10 @@ export const Header: React.FC<headerProps> = ({ categories = [] }) => {
           </div>
 
           {/* Central Search Bar */}
-          <div className="relative flex-1 max-w-2xl hidden md:block" ref={searchRef}>
+          <div
+            className="relative flex-1 max-w-2xl hidden md:block"
+            ref={searchRef}
+          >
             <form
               onSubmit={(e) => e.preventDefault()}
               className="relative flex items-center"

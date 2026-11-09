@@ -1,12 +1,14 @@
 import { SectionTitle } from "@app/components/common/SectionTitle";
 import { ProductCard } from "@app/components/common/ProductCard";
-import { FetchWooProducts } from "@/lib/woocommerce/woocommerce";
-import type { Product } from "@app/types";
+import { getProducts } from "@/lib/woocommerce/products";
+import type { Product } from "@app/types/product";
 
 export async function AppliancesSection() {
-  const appliancesProducts = await FetchWooProducts(
-    "category=46&orderby=popularity&per_page=6",
-  );
+  const appliancesProducts = await getProducts({
+    perPage: 6,
+    orderby: "popularity",
+    categoryId: 46,
+  });
 
   return (
     <section className="py-6">

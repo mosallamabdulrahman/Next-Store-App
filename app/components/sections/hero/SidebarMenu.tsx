@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FetchWooCategories } from "@/lib/woocommerce/woocommerce";
-import { ShopCategoryItem } from "@/app/types";
+import { getCategories } from "@/lib/woocommerce/categories";
+import { Category } from "@/app/types/category";
 
 export const SidebarMenu = async () => {
-  const categories: ShopCategoryItem[] = (await FetchWooCategories()) || [];
+  const categories: Category[] = await getCategories();
   return (
     <aside className="w-full bg-primary-gray rounded-4xl shadow-xs p-4 overflow-hidden flex flex-col justify-between h-full">
       <ul className="flex flex-col gap-1">

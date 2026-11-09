@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@app/globals.css";
 
-import { FetchWooCategories } from "@/lib/woocommerce/woocommerce";
+import { getCategories } from "@/lib/woocommerce/categories";
 import { Header } from "@app/components/common/Header";
 import { Footer } from "@app/components/common/Footer";
 
@@ -27,7 +27,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const categories = (await FetchWooCategories()) || [];
+  const categories = await getCategories();
   return (
     <html
       lang="en"

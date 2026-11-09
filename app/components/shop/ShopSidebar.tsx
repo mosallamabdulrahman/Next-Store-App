@@ -1,9 +1,10 @@
-import { FetchWooCategories } from "@/lib/woocommerce/woocommerce";
+import { getCategories } from "@/lib/woocommerce/categories";
+
 import { ShopSidebarClient } from "./shopSidebarClient";
-import { ShopCategoryItem } from "@/app/types";
+import { Category } from "@/app/types/category";
 
 export async function ShopSidebar() {
-  const categories: ShopCategoryItem[] = (await FetchWooCategories()) || [];
+  const categories: Category[] = await getCategories();
 
   return <ShopSidebarClient categories={categories} />;
 }

@@ -1,7 +1,8 @@
-import { FetchWooProductBySlug } from "@/lib/woocommerce/woocommerce";
+import { getProductBySlug } from "@/lib/woocommerce/products";
 import { getProductDetails } from "@app/data/productData";
 import { ProductView } from "./ProductView";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -11,27 +12,27 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  let wooProduct = null;
+  let product = null;
   try {
-    wooProduct = await FetchWooProductBySlug(slug);
+    product = await getProductBySlug(slug);
   } catch {
     // Ignore fetch errors during metadata generation
   }
 
-  const product = getProductDetails(slug, wooProduct);
+  const productDetails = getProductDetails(slug, product);
 
   return {
-    title: `${product.name} - Electronics Mega Store`,
-    description: product.description.substring(0, 160),
+    title: `${productDetails.name} - Electronics Mega Store`,
+    description: productDetails.description.substring(0, 160),
     openGraph: {
-      title: `${product.name} | WoodMart`,
-      description: product.description.substring(0, 160),
+      title: `${productDetails.name} | WoodMart`,
+      description: productDetails.description.substring(0, 160),
       images: [
         {
-          url: product.images[0]?.src || "",
+          url: productDetails.images[0]?.src || "/logo.svg",
           width: 700,
           height: 800,
-          alt: product.name,
+          alt: productDetails.name,
         },
       ],
     },
@@ -41,9 +42,9 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
 
-  let wooProduct = null;
+  let product = null;
   try {
-    wooProduct = await FetchWooProductBySlug(slug);
+    product = await getProductBySlug(slug);
   } catch (error) {
     console.error(
       "WooCommerce fetch failed, falling back to static product:",
@@ -51,7 +52,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     );
   }
 
-  const product = getProductDetails(slug, wooProduct);
+  if (!product) {
+    notFound();
+  }
 
-  return <ProductView product={product} />;
+  const productDetails = getProductDetails(slug, product);
+
+  return <ProductView product={productDetails} />;
 }

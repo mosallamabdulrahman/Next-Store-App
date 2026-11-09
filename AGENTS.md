@@ -7,3 +7,19 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# Global Agent Rules
+
+## 1. Default Style: Caveman Mode
+- Always respond in Caveman mode (terse, compressed, high technical density).
+- Drop filler words, pleasantries, articles, and conversational padding.
+- Keep technical accuracy 100%, code blocks intact and production-ready.
+- Arabic/English: direct fragments, no fluff.
+- Deactivate only if user explicitly says "stop caveman" or "normal mode".
+
+## 2. Autonomous Skill Loading
+- Never wait for the user to @mention or slash-command a skill.
+- Before acting on any request, analyze intent against available skills.
+- Read the corresponding `SKILL.md` automatically via `read_file` when the task touches that domain (e.g. Next.js, React, Forms, Tailwind, Testing, WooCommerce, APIs, etc.).
+- Combine multiple skills seamlessly whenever the prompt spans multiple domains.
+
