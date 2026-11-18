@@ -1,9 +1,7 @@
 "use client";
+
 import Image from "next/image";
 import { Brand } from "@/app/types/brand";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import "swiper/css";
 
 interface BrandsSliderProps {
   brands: Brand[];
@@ -11,40 +9,32 @@ interface BrandsSliderProps {
 
 function BrandsSlider({ brands }: BrandsSliderProps) {
   if (!brands || brands.length === 0) return null;
+
+  const marqueeBrands = [...brands, ...brands];
+
   return (
-    <div className="relative group/slider px-2">
-      <Swiper
-        slidesPerView={2}
-        slidesPerGroup={2}
-        breakpoints={{
-          640: {
-            slidesPerView: 4,
-            slidesPerGroup: 4,
-            spaceBetween: 16,
-          },
-          1024: {
-            slidesPerView: 7,
-            slidesPerGroup: 7,
-            spaceBetween: 20,
-          },
-        }}
-        loop={true}
-        className="brands-swiper py-2"
-      >
-        {brands.map((brand) => (
-          <SwiperSlide key={brand.id}>
-            <div className="flex items-center justify-center h-20 sm:h-24 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200/70 transition-all duration-300 cursor-pointer">
+    <div className="relative overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+      <div className="flex w-max items-center gap-3.5 animate-marquee hover:[animation-play-state:paused]">
+        {marqueeBrands.map((brand, idx) => (
+          <div
+            key={`${brand.id}-${idx}`}
+            className="shrink-0 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white border border-[#E5E0D8] hover:border-[#0F3D3E] shadow-2xs transition-all duration-200 cursor-pointer group"
+          >
+            <div className="w-16 h-7 relative flex items-center justify-center">
               <Image
                 src={brand.imageUrl}
                 alt={brand.name}
-                width={120}
-                height={60}
-                className="object-contain"
+                width={90}
+                height={36}
+                className="max-h-full w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
               />
             </div>
-          </SwiperSlide>
+            <span className="text-xs font-semibold text-[#57534E] group-hover:text-[#0F3D3E] transition-colors">
+              {brand.name}
+            </span>
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 }

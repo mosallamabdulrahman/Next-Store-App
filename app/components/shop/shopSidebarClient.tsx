@@ -12,20 +12,20 @@ interface CategoriesListProps {
 const CategoriesList: React.FC<CategoriesListProps> = ({ categories }) => {
   return (
     <div>
-      <h3 className="text-[17px] font-bold text-gray-900 tracking-tight mb-3">
-        Categories
+      <h3 className="font-display text-base font-bold text-[#18181B] tracking-tight mb-3.5">
+        Departments
       </h3>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col gap-1">
         {categories.map((cat) => (
           <li key={cat.id}>
             <Link
               href={`/product-category/${cat.slug}`}
-              className="group flex items-center justify-between py-2 text-[14.5px] text-gray-600 hover:text-gray-900 transition-colors"
+              className="group flex items-center justify-between px-3 py-2 rounded-xl text-sm text-[#57534E] hover:text-[#0F3D3E] hover:bg-white transition-all"
             >
-              <span className="group-hover:translate-x-0.5 transition-transform duration-150">
+              <span className="group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-transform duration-150 font-medium">
                 {cat.name.replace(/&amp;/g, "&")}
               </span>
-              <span className="text-xs font-normal text-gray-400 group-hover:text-gray-600 border border-gray-200 group-hover:border-gray-300 rounded-full px-2.5 py-0.5 min-w-[28px] text-center transition-colors">
+              <span className="text-[11px] font-semibold text-[#57534E] group-hover:text-[#0F3D3E] bg-[#FAF9F6] border border-[#E5E0D8] group-hover:border-[#0F3D3E]/40 rounded-full px-2.5 py-0.5 min-w-[30px] text-center tabular-nums transition-colors">
                 {cat.productCount}
               </span>
             </Link>
@@ -58,37 +58,31 @@ const PriceFilterSection: React.FC<PriceFilterProps> = ({
 
   return (
     <div className="pt-2">
-      <h3 className="text-[17px] font-bold text-gray-900 tracking-tight mb-4">
+      <h3 className="font-display text-base font-bold text-[#18181B] tracking-tight mb-4">
         Filter By Price
       </h3>
 
-      {/* Dual Slider Bar */}
       <div className="relative py-2 select-none">
-        {/* Track Background */}
-        <div className="relative h-1 w-full bg-gray-200 rounded-full">
-          {/* Active Highlight Track */}
+        <div className="relative h-1.5 w-full bg-[#E5E0D8] rounded-full">
           <div
-            className="absolute h-1 bg-[#5022c3] rounded-full"
+            className="absolute h-1.5 bg-[#0F3D3E] rounded-full"
             style={{
-              left: `${minPercentage}%`,
+              insetInlineStart: `${minPercentage}%`,
               width: `${maxPercentage - minPercentage}%`,
             }}
           />
 
-          {/* Left Handle Bar */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-1.5 h-3.5 bg-[#5022c3] rounded-xs cursor-pointer shadow-xs pointer-events-none"
-            style={{ left: `${minPercentage}%` }}
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2 w-3.5 h-3.5 bg-[#E85D3F] border-2 border-white rounded-full shadow-xs pointer-events-none"
+            style={{ insetInlineStart: `${minPercentage}%` }}
           />
 
-          {/* Right Handle Bar */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-1.5 h-3.5 bg-[#5022c3] rounded-xs cursor-pointer shadow-xs pointer-events-none"
-            style={{ left: `${maxPercentage}%` }}
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2 w-3.5 h-3.5 bg-[#E85D3F] border-2 border-white rounded-full shadow-xs pointer-events-none"
+            style={{ insetInlineStart: `${maxPercentage}%` }}
           />
         </div>
 
-        {/* Range Inputs (Overlaid for native drag support) */}
         <input
           type="range"
           min={minLimit}
@@ -111,24 +105,23 @@ const PriceFilterSection: React.FC<PriceFilterProps> = ({
         />
       </div>
 
-      {/* Price Labels and Filter Action Button */}
-      <div className="flex items-center justify-between mt-4">
-        <div className="text-sm text-gray-500 font-normal">
-          <span>Price: </span>
-          <span className="font-bold text-gray-900">
+      <div className="flex items-center justify-between gap-2 mt-4">
+        <div className="text-xs text-[#57534E] tabular-nums">
+          <span>Range: </span>
+          <strong className="text-[#18181B]">
             ${minPrice.toLocaleString()}
-          </span>
-          <span className="mx-1 text-gray-400">—</span>
-          <span className="font-bold text-gray-900">
+          </strong>
+          <span className="mx-1">—</span>
+          <strong className="text-[#18181B]">
             ${maxPrice.toLocaleString()}
-          </span>
+          </strong>
         </div>
 
         <button
           type="button"
-          className="bg-[#f4f4f4] hover:bg-gray-200 active:bg-gray-300 text-gray-800 text-xs font-semibold px-4 py-1.5 rounded-full transition-colors cursor-pointer"
+          className="bg-[#0F3D3E] hover:bg-[#E85D3F] active:scale-[0.98] text-[#FAF9F6] text-xs font-semibold px-4 py-2 rounded-xl transition-all cursor-pointer"
         >
-          Filter
+          Apply
         </button>
       </div>
     </div>
@@ -144,7 +137,6 @@ export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({
 }) => {
   const { isOpen, closeSidebar } = useShopSidebar();
 
-  // Price filter interactive state ($0 - $13,500)
   const minLimit = 0;
   const maxLimit = 13500;
   const [minPrice, setMinPrice] = useState(0);
@@ -162,18 +154,13 @@ export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({
 
   return (
     <>
-      {/* =========================================
-          1. DESKTOP SIDEBAR (Static on Left)
-          ========================================= */}
-      <aside className="hidden lg:block w-[270px] xl:w-[285px] shrink-0">
-        <div className="sticky top-24 space-y-6">
-          {/* Categories Box Container */}
-          <div className="bg-[#f8f8f8] rounded-3xl p-6 transition-shadow">
+      <aside className="hidden lg:block w-[275px] xl:w-[290px] shrink-0">
+        <div className="sticky top-28 space-y-6">
+          <div className="bg-[#F2EFE9]/75 border border-[#E5E0D8] rounded-3xl p-5">
             <CategoriesList categories={categories} />
           </div>
 
-          {/* Filter By Price */}
-          <div className="px-2">
+          <div className="bg-white border border-[#E5E0D8] rounded-3xl p-5">
             <PriceFilterSection
               minPrice={minPrice}
               maxPrice={maxPrice}
@@ -186,13 +173,10 @@ export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({
         </div>
       </aside>
 
-      {/* =========================================
-          2. MOBILE OFF-CANVAS DRAWER
-          ========================================= */}
-      {/* Backdrop overlay */}
+      {/* Mobile Backdrop */}
       <div
         onClick={closeSidebar}
-        className={`fixed inset-0 z-50 bg-black/45 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-50 bg-[#18181B]/45 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -200,22 +184,26 @@ export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({
         aria-hidden="true"
       />
 
-      {/* Drawer Panel */}
+      {/* Mobile Off-Canvas Drawer */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-[300px] sm:w-[330px] max-w-[85vw] bg-white h-full overflow-y-auto p-6 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col justify-between ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 start-0 z-50 w-[300px] sm:w-[330px] max-w-[85vw] bg-[#FAF9F6] border-e border-[#E5E0D8] h-full overflow-y-auto p-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden flex flex-col justify-between ${
+          isOpen
+            ? "translate-x-0"
+            : "-translate-x-full rtl:translate-x-full"
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Shop Filters"
       >
         <div>
-          {/* Top Close Header */}
-          <div className="flex justify-end pb-3 mb-5 border-b border-gray-100">
+          <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#E5E0D8]">
+            <span className="font-display text-sm font-bold text-[#18181B]">
+              Filter Catalog
+            </span>
             <button
               type="button"
               onClick={closeSidebar}
-              className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-black transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 min-h-10 px-3 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#18181B] hover:text-[#E85D3F] transition-colors cursor-pointer"
             >
               <svg
                 className="w-4 h-4"
@@ -233,13 +221,11 @@ export const ShopSidebarClient: React.FC<ShopSidebarClientProps> = ({
             </button>
           </div>
 
-          {/* Categories List */}
           <div className="mb-8">
             <CategoriesList categories={categories} />
           </div>
 
-          {/* Filter By Price */}
-          <div>
+          <div className="pt-4 border-t border-[#E5E0D8]">
             <PriceFilterSection
               minPrice={minPrice}
               maxPrice={maxPrice}

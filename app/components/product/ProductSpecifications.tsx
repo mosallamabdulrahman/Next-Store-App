@@ -20,55 +20,55 @@ export const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({
   const renderCategoryIcon = (icon: SpecCategory["icon"]) => {
     switch (icon) {
       case "overview":
-        return <OverviewIcon className="w-5 h-5 shrink-0" />;
+        return <OverviewIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "processor":
-        return <ProcessorIcon className="w-5 h-5 shrink-0" />;
+        return <ProcessorIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "ram":
-        return <RamIcon className="w-5 h-5 shrink-0" />;
+        return <RamIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "storage":
-        return <StorageIcon className="w-5 h-5 shrink-0" />;
+        return <StorageIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "video-card":
-        return <VideoCardIcon className="w-5 h-5 shrink-0" />;
+        return <VideoCardIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "connectivity":
-        return <ConnectivityIcon className="w-5 h-5 shrink-0" />;
+        return <ConnectivityIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
       case "general":
       default:
-        return <GeneralIcon className="w-5 h-5 shrink-0" />;
+        return <GeneralIcon className="w-5 h-5 shrink-0 text-[#0F3D3E]" />;
     }
   };
 
   return (
     <section id="Specifications" className="mb-14 scroll-mt-28">
-      <h2 className="text-2xl sm:text-3xl font-bold text-[#242424] mb-6 tracking-tight">
+      <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#18181B] mb-6 tracking-tight">
         Specification
       </h2>
 
-      <div className="bg-[#f4f4f4] rounded-2xl md:rounded-3xl p-6 sm:p-10 space-y-8 border border-gray-200/50">
+      <div className="bg-[#F2EFE9]/75 rounded-3xl p-6 sm:p-10 space-y-8 border border-[#E5E0D8]">
         {specifications.map((cat, idx) => (
           <div key={idx} className="space-y-4">
-            {/* Category Title with Icon */}
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-white border border-[#E5E0D8] flex items-center justify-center shadow-2xs">
                 {renderCategoryIcon(cat.icon)}
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#242424]">
+              <h3 className="font-display text-base sm:text-lg font-bold text-[#18181B]">
                 {cat.category}
               </h3>
             </div>
 
-            {/* Attributes Table */}
-            <div className="space-y-3 bg-white/40 rounded-2xl p-4 sm:p-5 border border-gray-200/40">
+            <div className="space-y-2 bg-white rounded-2xl p-4 sm:p-5 border border-[#E5E0D8]">
               {cat.items.map((item, itemIdx) => (
                 <div
                   key={itemIdx}
-                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 py-2 ${
-                    itemIdx !== cat.items.length - 1 ? "border-b border-gray-200/50" : ""
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 py-2.5 ${
+                    itemIdx !== cat.items.length - 1
+                      ? "border-b border-[#E5E0D8]"
+                      : ""
                   }`}
                 >
-                  <span className="text-xs sm:text-sm text-gray-500 font-normal">
+                  <span className="text-xs sm:text-sm text-[#57534E] font-normal">
                     {item.label}
                   </span>
-                  <span className="text-xs sm:text-sm text-[#242424] font-semibold sm:text-right">
+                  <span className="text-xs sm:text-sm text-[#18181B] font-semibold sm:text-end">
                     {item.value}
                   </span>
                 </div>

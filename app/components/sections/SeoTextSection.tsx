@@ -7,42 +7,45 @@ export const SeoTextSection: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="py-8 my-4 border-t border-gray-100">
-      <div className="bg-gray-50/70 rounded-3xl p-6 sm:p-8 border border-gray-100/80">
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
-              Online store of household appliances and electronics
+    <section className="py-6 my-4">
+      <div className="bg-[#F2EFE9]/75 rounded-3xl p-6 sm:p-9 border border-[#E5E0D8]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+          <div className="lg:col-span-6 space-y-2.5">
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0F3D3E]">
+              Mosalam Standard
+            </span>
+            <h2 className="font-display text-lg sm:text-xl font-bold text-[#18181B] tracking-tight">
+              Curated household appliances &amp; modern electronics
             </h2>
-            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-              Welcome to WoodMart, your premier destination for the latest
-              technology, electronics, and smart home appliances. We curate
-              thousands of top-tier products ranging from the newest
-              smartphones, powerful gaming rigs, and high-performance laptops to
-              energy-efficient kitchen appliances and immersive audio systems.
+            <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+              Welcome to Mosalam Store, your trusted destination for modern
+              consumer electronics, high-craft computing gear, and smart home
+              appliances. Every piece is selected for reliability, clean
+              industrial design, and long-term everyday performance.
             </p>
           </div>
 
           <div
-            className={`${isExpanded ? "block" : "hidden sm:block"} space-y-3 transition-all duration-300`}
+            className={`lg:col-span-6 ${isExpanded ? "block" : "hidden sm:block"} space-y-2.5 transition-all duration-300`}
           >
-            <h3 className="text-sm sm:text-base font-bold text-gray-800">
-              Online shopping that really is convenient
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#E85D3F]">
+              Care &amp; Delivery
+            </span>
+            <h3 className="font-display text-lg sm:text-xl font-bold text-[#18181B] tracking-tight">
+              Shopping designed around clarity and speed
             </h3>
-            <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-              We make technology accessible with transparent pricing, official
-              manufacturer warranties, and dedicated customer support available
-              24/7. Enjoy secure checkout with multiple payment options, prompt
-              delivery right to your door, and hassle-free 30-day return
-              guarantees.
+            <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+              We pair transparent pricing with official manufacturer warranties
+              and dedicated customer care. Enjoy protected checkout, fast
+              tracked nationwide delivery, and straightforward 30-day returns.
             </p>
           </div>
 
-          {/* Expand/Collapse Toggle on mobile */}
           <div className="pt-1 sm:hidden">
             <button
+              type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-purple-700 hover:text-purple-900"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F3D3E] hover:text-[#E85D3F] cursor-pointer"
             >
               <span>{isExpanded ? "Show less" : "Read more"}</span>
               <ChevronDownIcon

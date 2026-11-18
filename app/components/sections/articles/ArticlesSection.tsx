@@ -7,7 +7,6 @@ const FALLBACK_IMAGE =
   "https://woodmart.xtemos.com/electronics-3/wp-content/uploads/sites/27/2025/07/ed-logo.svg";
 
 function formatDate(value: string | null): Post["date"] {
-  // Use the WordPress calendar date without server timezone conversion.
   const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})T/);
   if (!match) return { day: "—", month: "" };
   const date = new Date(
@@ -53,13 +52,15 @@ async function fetchArticles(): Promise<Post[]> {
     const data: unknown = await response.json();
     if (!Array.isArray(data)) return [];
 
-    // The endpoint is the standard WordPress posts endpoint.
     const posts = data as WordPressPost[];
     return await Promise.all(
       posts.map(async (post): Promise<Post> => {
         const category = post._embedded?.["wp:term"]
           ?.flat()
-          .find((term: { taxonomy?: string; name?: string }) => term?.taxonomy === "category");
+          .find(
+            (term: { taxonomy?: string; name?: string }) =>
+              term?.taxonomy === "category",
+          );
         return {
           id: post.id,
           title: post.title?.rendered || "",
@@ -84,13 +85,14 @@ async function fetchArticles(): Promise<Post[]> {
 export async function ArticlesSection() {
   const articles = await fetchArticles();
   return (
-    <section className="py-8">
+    <section className="py-10">
       <SectionTitle
         title="Useful Articles"
+        subtitle="Buying guides, hardware breakdowns, and setup notes"
         actionText="View All"
         actionHref="#"
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {articles.map((post) => (
           <ArticleCard key={post.id} post={post} />
         ))}

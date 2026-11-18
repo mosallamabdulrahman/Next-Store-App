@@ -22,10 +22,10 @@ export async function generateMetadata({
   const productDetails = getProductDetails(slug, product);
 
   return {
-    title: `${productDetails.name} - Electronics Mega Store`,
+    title: `${productDetails.name} — Mosalam Store`,
     description: productDetails.description.substring(0, 160),
     openGraph: {
-      title: `${productDetails.name} | WoodMart`,
+      title: `${productDetails.name} | Mosalam Store`,
       description: productDetails.description.substring(0, 160),
       images: [
         {

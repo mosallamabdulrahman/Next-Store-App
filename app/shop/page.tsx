@@ -15,7 +15,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const gridColumns =
     resolvedSearchParams.per_row === "3"
       ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4";
+      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4";
 
   const products = await getProducts(
     productsParamsFromSearch(resolvedSearchParams),
@@ -23,22 +23,22 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   return (
     <ShopSidebarProvider>
-      <div className="min-h-screen w-full max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-6 py-2">
-        {/* Breadcrumbs matching Screenshot 2 & 3 */}
-        <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-6 font-normal">
-          <Link className="hover:text-gray-700 transition-colors" href={"/"}>
+      <div className="min-h-dvh w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-4">
+        {/* Breadcrumbs */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-2 text-xs text-[#57534E] mb-6"
+        >
+          <Link className="hover:text-[#0F3D3E] transition-colors" href="/">
             Home
           </Link>
-          <span className="text-gray-300">/</span>
-          <p className="text-gray-800 font-medium">Shop</p>
-        </div>
+          <span className="text-[#E5E0D8]">/</span>
+          <span className="text-[#18181B] font-semibold">Shop</span>
+        </nav>
 
-        {/* Main Content Layout */}
         <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-10">
-          {/* Static Sidebar: Left on desktop, off-canvas drawer on mobile */}
           <ShopSidebar />
 
-          {/* Right Product Grid Area */}
           <div className="flex-1 w-full min-w-0">
             <FiltersShop />
             <GridProdcuts products={products} gridColumns={gridColumns} />

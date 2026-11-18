@@ -21,20 +21,24 @@ export const ProductBreadcrumbNav: React.FC<ProductBreadcrumbNavProps> = ({
   navNext,
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 pb-5 border-b border-gray-100/80 mb-6">
-      {/* Breadcrumb Links */}
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-gray-400">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 pb-5 border-b border-[#E5E0D8] mb-6">
+      <nav
+        aria-label="Breadcrumb"
+        className="flex flex-wrap items-center gap-1.5 text-xs text-[#57534E]"
+      >
         {breadcrumbs.map((crumb, idx) => {
           const isLast = idx === breadcrumbs.length - 1;
           return (
             <React.Fragment key={idx}>
-              {idx > 0 && <span className="text-gray-300">/</span>}
+              {idx > 0 && <span className="text-[#E5E0D8]">/</span>}
               {isLast ? (
-                <span className="text-gray-800 font-semibold">{crumb.label}</span>
+                <span className="text-[#18181B] font-semibold">
+                  {crumb.label}
+                </span>
               ) : (
                 <Link
                   href={crumb.href}
-                  className="hover:text-purple-700 transition-colors"
+                  className="hover:text-[#0F3D3E] transition-colors"
                 >
                   {crumb.label}
                 </Link>
@@ -44,37 +48,40 @@ export const ProductBreadcrumbNav: React.FC<ProductBreadcrumbNavProps> = ({
         })}
       </nav>
 
-      {/* Prev / Back / Next Product Navigation with CSS Hover Tooltips */}
-      <div className="flex items-center gap-1 self-end sm:self-auto shrink-0">
-        {/* Previous Product Button */}
+      <div className="flex items-center gap-1.5 self-end sm:self-auto shrink-0">
         {navPrev && (
           <div className="relative group">
             <Link
               href={`/product/${navPrev.slug}`}
-              className="w-8 h-8 rounded-full border border-gray-200 hover:border-purple-600 hover:text-purple-700 flex items-center justify-center text-gray-500 transition-all bg-white shadow-2xs hover:shadow-xs"
+              className="w-9 h-9 rounded-xl border border-[#E5E0D8] hover:border-[#0F3D3E] hover:text-[#0F3D3E] flex items-center justify-center text-[#57534E] transition-all bg-white shadow-2xs"
               aria-label={`Previous product: ${navPrev.name}`}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                className="w-4 h-4 rtl:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </Link>
 
-            {/* Hover Popover via CSS */}
-            <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-gray-200/90 rounded-2xl p-2.5 shadow-xl z-50 items-center gap-3 hidden group-hover:flex animate-in fade-in zoom-in-95 duration-150">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-50 shrink-0 border border-gray-100">
+            <div className="absolute end-0 top-full mt-2 w-56 bg-white border border-[#E5E0D8] rounded-2xl p-2.5 shadow-xl z-50 items-center gap-3 hidden group-hover:flex">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[#F2EFE9] shrink-0 border border-[#E5E0D8]">
                 <Image
                   src={navPrev.image}
                   alt={navPrev.name}
                   fill
                   sizes="48px"
-                  className="object-contain p-1"
+                  className="object-contain p-1 mix-blend-multiply"
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-gray-800 truncate hover:text-purple-700">
+                <p className="text-xs font-semibold text-[#18181B] truncate">
                   {navPrev.name}
                 </p>
-                <p className="text-xs font-bold text-purple-700 mt-0.5">
+                <p className="text-xs font-bold text-[#0F3D3E] mt-0.5 tabular-nums">
                   ${navPrev.price.toFixed(2)}
                 </p>
               </div>
@@ -82,45 +89,48 @@ export const ProductBreadcrumbNav: React.FC<ProductBreadcrumbNavProps> = ({
           </div>
         )}
 
-        {/* Back to Products (Grid icon) */}
         <Link
           href="/shop"
-          className="w-8 h-8 rounded-full border border-gray-200 hover:border-purple-600 hover:text-purple-700 flex items-center justify-center text-gray-500 transition-all bg-white shadow-2xs hover:shadow-xs group relative"
+          className="w-9 h-9 rounded-xl border border-[#E5E0D8] hover:border-[#0F3D3E] hover:text-[#0F3D3E] flex items-center justify-center text-[#57534E] transition-all bg-white shadow-2xs group relative"
           aria-label="Back to products"
         >
-          <GridDotsIcon className="w-3.5 h-3.5 group-hover:text-purple-700 transition-colors" />
+          <GridDotsIcon className="w-3.5 h-3.5" />
           <span className="sr-only">Back to products</span>
         </Link>
 
-        {/* Next Product Button */}
         {navNext && (
           <div className="relative group">
             <Link
               href={`/product/${navNext.slug}`}
-              className="w-8 h-8 rounded-full border border-gray-200 hover:border-purple-600 hover:text-purple-700 flex items-center justify-center text-gray-500 transition-all bg-white shadow-2xs hover:shadow-xs"
+              className="w-9 h-9 rounded-xl border border-[#E5E0D8] hover:border-[#0F3D3E] hover:text-[#0F3D3E] flex items-center justify-center text-[#57534E] transition-all bg-white shadow-2xs"
               aria-label={`Next product: ${navNext.name}`}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                className="w-4 h-4 rtl:rotate-180"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </Link>
 
-            {/* Hover Popover via CSS */}
-            <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-gray-200/90 rounded-2xl p-2.5 shadow-xl z-50 items-center gap-3 hidden group-hover:flex animate-in fade-in zoom-in-95 duration-150">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-50 shrink-0 border border-gray-100">
+            <div className="absolute end-0 top-full mt-2 w-56 bg-white border border-[#E5E0D8] rounded-2xl p-2.5 shadow-xl z-50 items-center gap-3 hidden group-hover:flex">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-[#F2EFE9] shrink-0 border border-[#E5E0D8]">
                 <Image
                   src={navNext.image}
                   alt={navNext.name}
                   fill
                   sizes="48px"
-                  className="object-contain p-1"
+                  className="object-contain p-1 mix-blend-multiply"
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-gray-800 truncate hover:text-purple-700">
+                <p className="text-xs font-semibold text-[#18181B] truncate">
                   {navNext.name}
                 </p>
-                <p className="text-xs font-bold text-purple-700 mt-0.5">
+                <p className="text-xs font-bold text-[#0F3D3E] mt-0.5 tabular-nums">
                   ${navNext.price.toFixed(2)}
                 </p>
               </div>

@@ -9,6 +9,7 @@ import {
   HeartIcon,
   CompareIcon,
   EyeIcon,
+  CheckIcon,
 } from "@app/components/common/Icons";
 import Image from "next/image";
 
@@ -26,120 +27,177 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     setTimeout(() => setIsAddedToCart(false), 1500);
   };
 
-  return (
-    <div className="group relative bg-white rounded-2xl border border-gray-100/90 p-3.5 sm:p-4 flex flex-col justify-between hover:border-purple-200 hover:shadow-lg hover:shadow-purple-700/5 transition-all duration-300">
-      {/* Product Image Area */}
-      <Link
-        href={`/product/${product.slug}`}
-        className="relative w-full aspect-square bg-gray-50/50 rounded-xl overflow-hidden mb-3 flex items-center justify-center p-2"
-      >
-        {/* Badges */}
-        {product?.categories?.[0] && (
-          <span
-            className={`absolute top-2 left-2 z-10 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-              product.categories?.[0]?.name === "Sale"
-                ? "bg-rose-500 text-white"
-                : product.categories?.[0]?.name === "Hot"
-                  ? "bg-amber-500 text-white"
-                  : "bg-purple-700 text-white"
-            }`}
-          >
-            {product.categories?.[0]?.name}
-          </span>
-        )}
+  const primarySrc =
+    product?.images?.[0]?.src ||
+    product?.primaryImage?.src ||
+    "/images/Greatwall_Luyuan_Logo_Full_Transparent_Native.webp";
+  const secondarySrc = product?.images?.[1]?.src;
+  const discountPercent =
+    product.regularPrice > product.price && product.regularPrice > 0
+      ? Math.round(
+          ((product.regularPrice - product.price) / product.regularPrice) * 100,
+        )
+      : 0;
 
-        {/* Hover Action buttons overlay */}
-        <div className="absolute top-2 right-2 z-10 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0">
+  return (
+    <article className="group relative bg-white rounded-2xl border border-[#E5E0D8] p-3 sm:p-3.5 flex flex-col justify-between hover:border-[#0F3D3E]/40 hover:shadow-[0_14px_32px_-12px_rgba(15,61,62,0.12)] transition-all duration-300 ease-out">
+      {/* Media Frame */}
+      <div className="relative w-full aspect-[4/5] bg-[#F2EFE9]/65 rounded-xl overflow-hidden mb-3.5">
+        <Link
+          href={`/product/${product.slug}`}
+          className="relative w-full h-full flex items-center justify-center p-4"
+        >
+          {/* Primary Image */}
+          <Image
+            src={primarySrc}
+            alt={product?.images?.[0]?.alt || product.name}
+            width={500}
+            height={500}
+            loading="lazy"
+            className={`max-h-full max-w-full object-contain mix-blend-multiply transition-all duration-500 ease-out ${
+              secondarySrc
+                ? "group-hover:opacity-0 group-hover:scale-95"
+                : "group-hover:scale-105"
+            }`}
+          />
+
+          {/* Secondary Hover Swap Image */}
+          {secondarySrc && (
+            <Image
+              src={secondarySrc}
+              alt={`${product.name} alternate view`}
+              width={500}
+              height={500}
+              loading="lazy"
+              className="absolute inset-0 m-auto max-h-[85%] max-w-[85%] object-contain mix-blend-multiply opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-out"
+            />
+          )}
+        </Link>
+
+        {/* Top Start Badges */}
+        <div className="absolute top-2.5 start-2.5 z-10 flex flex-col items-start gap-1.5 pointer-events-none">
+          {discountPercent > 0 && (
+            <span className="bg-[#E85D3F] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs tabular-nums">
+              -{discountPercent}%
+            </span>
+          )}
+          {product?.categories?.[0] && (
+            <span
+              className={`text-[10px] font-semibold tracking-wide px-2.5 py-0.5 rounded-full backdrop-blur-xs ${
+                product.categories?.[0]?.name === "Sale"
+                  ? "bg-[#E85D3F] text-white"
+                  : product.categories?.[0]?.name === "Hot"
+                    ? "bg-[#F4A261] text-[#18181B]"
+                    : "bg-[#FAF9F6]/90 text-[#0F3D3E] border border-[#E5E0D8]"
+              }`}
+            >
+              {product.categories?.[0]?.name.replace(/&amp;/g, "&")}
+            </span>
+          )}
+        </div>
+
+        {/* Floating Action Cluster */}
+        <div className="absolute top-2.5 end-2.5 z-10 flex flex-col gap-1.5 sm:opacity-0 sm:translate-x-2 rtl:sm:-translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
           <button
+            type="button"
             onClick={() => setIsWishlisted(!isWishlisted)}
-            className={`p-1.5 rounded-full bg-white shadow-xs border border-gray-100 transition-colors ${
+            className={`w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs shadow-xs border border-[#E5E0D8] flex items-center justify-center transition-all active:scale-[0.95] cursor-pointer ${
               isWishlisted
-                ? "text-rose-500"
-                : "text-gray-500 hover:text-purple-700"
+                ? "text-[#E85D3F] border-[#E85D3F]/40"
+                : "text-[#57534E] hover:text-[#E85D3F] hover:border-[#E85D3F]/30"
             }`}
             title="Add to Wishlist"
             aria-label="Wishlist"
           >
             <HeartIcon
-              className={`w-3.5 h-3.5 ${isWishlisted ? "fill-current" : ""}`}
+              className={`w-4 h-4 ${isWishlisted ? "fill-current" : ""}`}
             />
           </button>
           <button
-            className="p-1.5 rounded-full bg-white shadow-xs border border-gray-100 text-gray-500 hover:text-purple-700 transition-colors"
+            type="button"
+            className="hidden sm:flex w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs shadow-xs border border-[#E5E0D8] text-[#57534E] hover:text-[#0F3D3E] hover:border-[#0F3D3E]/30 items-center justify-center transition-all active:scale-[0.95] cursor-pointer"
             title="Compare"
             aria-label="Compare"
           >
-            <CompareIcon className="w-3.5 h-3.5" />
+            <CompareIcon className="w-4 h-4" />
           </button>
-          <button
-            className="p-1.5 rounded-full bg-white shadow-xs border border-gray-100 text-gray-500 hover:text-purple-700 transition-colors"
+          <Link
+            href={`/product/${product.slug}`}
+            className="hidden sm:flex w-9 h-9 rounded-full bg-white/95 backdrop-blur-xs shadow-xs border border-[#E5E0D8] text-[#57534E] hover:text-[#0F3D3E] hover:border-[#0F3D3E]/30 items-center justify-center transition-all active:scale-[0.95]"
             title="Quick View"
             aria-label="Quick View"
           >
-            <EyeIcon className="w-3.5 h-3.5" />
-          </button>
+            <EyeIcon className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Main Image */}
-        <Image
-          src={
-            product?.images?.[0]?.src ||
-            "/images/Greatwall_Luyuan_Logo_Full_Transparent_Native.webp"
-          }
-          alt={product?.images?.[0]?.alt || product.name}
-          className="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-108"
-          loading="lazy"
-          width={500}
-          height={500}
-        />
-      </Link>
-
-      {/* Product Information */}
-      <div className="flex flex-col flex-1 justify-between">
-        {/* Category & Rating Number */}
-        <div className="flex items-center justify-between text-[11px] text-gray-400 mb-1">
-          <span className="hover:text-purple-700 transition-colors cursor-pointer line-clamp-1">
-            {product?.categories?.[0]?.name ?? "No Category"}
-          </span>
-          <div className="flex items-center gap-1 font-semibold text-gray-600">
-            <span>{product.averageRating ?? "No Rating"}</span>
-            <span className="text-yellow-400">★</span>
-          </div>
-        </div>
-
-        {/* Product Title */}
-        <Link href="#" className="block mb-2">
-          <h3 className="text-xs sm:text-[13px] font-bold text-gray-900 group-hover:text-purple-700 transition-colors line-clamp-2 leading-snug">
-            {product.name}
-          </h3>
-        </Link>
-
-        {/* Stars */}
-        <div className="mb-2">
-          <StarRating rating={product.averageRating} />
-        </div>
-
-        {/* Price & Add to Cart button */}
-        <div className="flex items-center justify-between pt-1 border-t border-gray-50">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm sm:text-base font-extrabold text-purple-700">
-              EGP{product.price}
-            </span>
-          </div>
-
+        {/* Floating Quick-Add Pill */}
+        <div className="absolute inset-x-2.5 bottom-2.5 z-10 sm:opacity-0 sm:translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
           <button
+            type="button"
             onClick={handleAddToCart}
-            className={`p-2 rounded-full transition-all duration-200 flex items-center justify-center ${
+            className={`w-full min-h-10 px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-all duration-200 active:scale-[0.98] cursor-pointer ${
               isAddedToCart
-                ? "bg-emerald-600 text-white scale-105"
-                : "bg-gray-100 hover:bg-purple-700 text-gray-700 hover:text-white"
+                ? "bg-[#0F3D3E] text-[#FAF9F6]"
+                : "bg-[#E85D3F] hover:bg-[#D1492B] text-white"
             }`}
             aria-label="Add to cart"
           >
-            <CartIcon className="w-3.5 h-3.5" />
+            {isAddedToCart ? (
+              <>
+                <CheckIcon className="w-3.5 h-3.5" />
+                <span>Added</span>
+              </>
+            ) : (
+              <>
+                <CartIcon className="w-3.5 h-3.5" />
+                <span>Quick Add</span>
+              </>
+            )}
           </button>
         </div>
       </div>
-    </div>
+
+      {/* Product Information */}
+      <div className="flex flex-col flex-1 justify-between px-0.5">
+        <div>
+          <div className="flex items-center justify-between gap-2 text-[11px] text-[#57534E] mb-1">
+            <span className="truncate font-medium">
+              {product?.categories?.[0]?.name.replace(/&amp;/g, "&") ??
+                "Essentials"}
+            </span>
+            <div className="flex items-center gap-1 font-semibold text-[#18181B] shrink-0 tabular-nums">
+              <span className="text-[#F4A261]">★</span>
+              <span>
+                {product.averageRating ? product.averageRating.toFixed(1) : "5.0"}
+              </span>
+            </div>
+          </div>
+
+          <Link href={`/product/${product.slug}`} className="block mb-2">
+            <h3 className="font-display text-sm font-bold text-[#18181B] group-hover:text-[#0F3D3E] transition-colors line-clamp-2 leading-snug">
+              {product.name}
+            </h3>
+          </Link>
+        </div>
+
+        <div className="space-y-2 pt-2 border-t border-[#E5E0D8]/70">
+          <StarRating rating={product.averageRating || 5} />
+
+          <div className="flex items-baseline justify-between gap-2">
+            <div className="flex items-baseline gap-1.5 tabular-nums">
+              <span className="text-base font-extrabold text-[#0F3D3E]">
+                EGP {product.price}
+              </span>
+              {product.regularPrice > product.price && (
+                <span className="text-xs text-[#57534E]/70 line-through">
+                  {product.regularPrice}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 };

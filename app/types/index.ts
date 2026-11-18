@@ -24,23 +24,6 @@ export interface ShopCategoryItem {
   image: ImageProduct;
   count: number;
 }
-export interface Category {
-  id: number;
-  name: string;
-  slug: string;
-}
-export interface Product {
-  name: string;
-  id: string;
-  title: string;
-  slug: string;
-  price: number;
-  description: string;
-  categories: Category[];
-  images: ImageProduct[];
-  average_rating: number;
-}
-
 export interface Post {
   category: string;
   author: string;

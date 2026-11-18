@@ -11,15 +11,12 @@ interface BestsellersSectionProps {
 export async function BestsellersSection({
   category = "smartphones",
 }: BestsellersSectionProps) {
-  // 1. Get category by slug
   const categoryData = await getCategoryBySlug(category);
 
-  // 2. Handle missing category
   if (!categoryData) {
     return null;
   }
 
-  // 3. Get bestselling products in category
   const products = await getProducts({
     categoryId: categoryData.id,
     orderby: "popularity",
@@ -27,21 +24,26 @@ export async function BestsellersSection({
   });
 
   return (
-    <section className="py-6">
-      <SectionTitle title="Bestsellers In Category">
+    <section className="py-10">
+      <SectionTitle
+        title="Bestsellers In Category"
+        subtitle="Most requested pieces curated by department"
+      >
         <ButtonTabs />
       </SectionTitle>
 
       {products.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <p className="py-8 text-center text-gray-500">
-          No products found in this category.
-        </p>
+        <div className="py-12 text-center rounded-3xl bg-[#F2EFE9]/60 border border-[#E5E0D8]">
+          <p className="text-sm text-[#57534E]">
+            No products found in this category.
+          </p>
+        </div>
       )}
     </section>
   );

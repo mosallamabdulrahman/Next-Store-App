@@ -127,7 +127,7 @@ export const ChevronRightIcon: React.FC<IconProps> = ({ className = 'w-4 h-4', .
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
+    className={`rtl:rotate-180 ${className}`}
     {...props}
   >
     <path d="m9 18 6-6-6-6" />
@@ -194,13 +194,21 @@ export const StarRating: React.FC<{ rating: number; max?: number; className?: st
 }) => {
   return (
     <div className={className}>
-      <div className="flex items-center text-yellow-400">
+      <div className="flex items-center text-[#F4A261]">
         {[...Array(max)].map((_, i) => (
-          <StarIcon key={i} filled={i < Math.floor(rating)} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+          <StarIcon
+            key={i}
+            filled={i < Math.floor(rating)}
+            className={`w-3.5 h-3.5 ${
+              i < Math.floor(rating)
+                ? 'fill-[#F4A261] text-[#F4A261]'
+                : 'fill-transparent text-[#E5E0D8]'
+            }`}
+          />
         ))}
       </div>
       {showNumber && (
-        <span className="text-xs font-semibold text-gray-700 ml-1">
+        <span className="text-xs font-semibold text-[#57534E] ms-1.5 tabular-nums">
           {rating.toFixed(1)}
         </span>
       )}

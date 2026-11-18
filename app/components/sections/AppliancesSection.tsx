@@ -11,14 +11,15 @@ export async function AppliancesSection() {
   });
 
   return (
-    <section className="py-6">
+    <section className="my-6 bg-[#F2EFE9]/75 border border-[#E5E0D8] rounded-3xl p-5 sm:p-8">
       <SectionTitle
         title="Popular in Appliances"
+        subtitle="Quiet efficiency for modern kitchens and living spaces"
         actionText="View All"
-        actionHref="#"
+        actionHref="/product-category/appliances"
       />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
         {appliancesProducts?.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}

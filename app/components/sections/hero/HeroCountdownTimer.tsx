@@ -48,26 +48,23 @@ export const HeroCountdownTimer: React.FC<HeroCountdownTimerProps> = ({
   }, []);
 
   return (
-    <div className="my-2 bg-gray-50/80 rounded-xl p-2 text-center">
-      <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider block mb-1">
-        ENDS IN
+    <div className="my-3 bg-[#09292A]/80 border border-[#FAF9F6]/10 rounded-2xl p-2.5 text-center">
+      <span className="text-[10px] font-semibold text-[#FAF9F6]/70 uppercase tracking-[0.14em] block mb-1.5">
+        Offer Ends In
       </span>
-      <div className="flex items-center justify-center gap-1 text-xs font-mono font-bold text-gray-800">
-        <span className="bg-white border border-gray-200 px-1.5 py-0.5 rounded shadow-xs">
+      <div className="grid grid-cols-4 gap-1.5 text-xs font-mono font-bold tabular-nums">
+        <div className="bg-[#FAF9F6]/10 rounded-lg py-1.5 text-[#FAF9F6]">
           {timeLeft.days}d
-        </span>
-        <span>:</span>
-        <span className="bg-white border border-gray-200 px-1.5 py-0.5 rounded shadow-xs">
+        </div>
+        <div className="bg-[#FAF9F6]/10 rounded-lg py-1.5 text-[#FAF9F6]">
           {timeLeft.hours}h
-        </span>
-        <span>:</span>
-        <span className="bg-white border border-gray-200 px-1.5 py-0.5 rounded shadow-xs">
+        </div>
+        <div className="bg-[#FAF9F6]/10 rounded-lg py-1.5 text-[#FAF9F6]">
           {timeLeft.mins}m
-        </span>
-        <span>:</span>
-        <span className="bg-purple-700 text-white px-1.5 py-0.5 rounded shadow-xs">
+        </div>
+        <div className="bg-[#E85D3F] rounded-lg py-1.5 text-white">
           {timeLeft.secs}s
-        </span>
+        </div>
       </div>
     </div>
   );
